@@ -41,7 +41,7 @@ public class SortWords {
             e.printStackTrace();
         }
         return wList;
-    }}
+    }
 
     /**
      * The function `getWords()` reads a list of five-letter words from a file,
