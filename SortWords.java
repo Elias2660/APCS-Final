@@ -20,14 +20,7 @@ public class SortWords {
         CreateFiveLettersWordList();
     }
 
-    public static ArrayList<String> makeWordList(String path) {}
-    /**
-     * Reads a file containing a list of words, adds each word to an ArrayList,
-     * and returns the ArrayList.
-     *
-     * @return The ArrayList containing the words from the file.
-     */
-    public static ArrayList<String> makeWordList() {
+    public static ArrayList<String> makeWordList(String path) {
         ArrayList<String> wList = new ArrayList<String>();
         BASEPATH = path;
         try {
@@ -123,9 +116,6 @@ public class SortWords {
         ArrayList<String> PossibleAnswers = new ArrayList<String>();
         try {
             Scanner words = new Scanner(new File(BASEPATH +
-                    "./tenThousandCommon.txt"));
-            Scanner words = new Scanner(new File(
-                    BASEPATH + "tenThousandCommon.txt"));
                     "/tenThousandCommon.txt"));
             while (words.hasNextLine()) {
                 String line = words.nextLine();
