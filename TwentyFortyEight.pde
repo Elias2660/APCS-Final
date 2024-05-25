@@ -3,7 +3,9 @@ public class TwentyFortyEight {
     boolean lost;
     
     public TwentyFortyEight() {
-        surface.setResizable(310, 310);
+        
+        surface.setSize(1240, 1240);
+        // size(310, 310);
         board = new int[][]{
             {0, 0, 0, 0} , 
             {0,0,0,0} ,
@@ -15,21 +17,21 @@ public class TwentyFortyEight {
     
     public int[] updateState(char event) {
         // update the state based 
-        switch(event) {
-            //depending on each event
-            case 'U':
-                // for each col
-                // starting from the top check if the next would merge
-                // if it does merge, and sync locations
-                break;            
-            case 'D':
-                break;            
-            case 'L':
-                break;            
-            case 'R':
-                break;
-        }
-        
+        // switch(event) {
+        //     //depending on each event
+        //     case 'U':
+        //         // for each col
+        //         // starting from the top check if the next would merge
+        //         // if it does merge, and sync locations
+        //         break;            
+        //     case 'D':
+        //         break;            
+        //     case 'L':
+        //         break;            
+        //     case 'R':
+        //         break;
+        // }
+        return new int[]{0};
         // updates the patches based on the 
     }
 
