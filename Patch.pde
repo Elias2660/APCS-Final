@@ -14,6 +14,7 @@ public class Patch {
         this.w = w;
         this.h = h;
         this.value = value;
+        // println(c);
     }
     
     public Patch(PApplet applet, int x, int y, int w, int h, color c) {
@@ -23,12 +24,14 @@ public class Patch {
         this.w = w;
         this.h = h;
         this.c = c;
+        // println(c);
     }
     
     void draw() {
         //When working in colorMode(RGB, 255), you can achieve the same results as red() but with greater speed by using the right shift operator (>>) with a bit mask
         // ! finish work
-        fill(Red(c), Green(c), Blue(c));
+        stroke(red(c), green(c), blue(c));
+        fill(red(c), green(c), blue(c));
         applet.rect(x, y, w, h, 10);
     }
     
