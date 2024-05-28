@@ -1,13 +1,15 @@
 
+TwentyFortyEight tfe;
+
 void setup() { 
     size(400, 400);
     surface.setResizable(true);
-    TwentyFortyEight tfe = new TwentyFortyEight();
+     tfe = new TwentyFortyEight(this);
 }
 
 
 void draw() {
-
+    tfe.draw();
 }
 
 void keyPressed() {
