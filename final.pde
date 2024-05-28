@@ -1,13 +1,13 @@
 
 
-setup(){ 
+void setup(){ 
     size(400, 400);
 }
-
-draw() {
-
+TicTacToe tic = new TicTacToe();
+void draw() {
+  tic.draw();
 }
 
-keyPressed() {
+void keyPressed() {
 
 }
