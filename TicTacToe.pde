@@ -13,12 +13,19 @@ public class TicTacToe implements Game {
   }
   
   public void draw() {
+    strokeWeight(1);
     pushMatrix();
-    scale(10.0);
-    translate(4.5,4.5);
+    translate(width/2 - 15*10, height / 2 - 15*10);
+    scale(10);
     drawGrid();
     addX(0,0);
+    
     popMatrix();
+    
+    
+    //drawGrid();
+    //
+    
   }
   
   private void drawGrid(){
@@ -30,8 +37,15 @@ public class TicTacToe implements Game {
   
   private void addX(int x, int y) {
    board[x][y] = 1;
-   line(0,0,5,5);
-   line(0,5,5,0);
+   float i = 10.5;
+   line(2,2,7,7);
+   line(2,7,7,2);
+   
+   line(2 + i,2,7 + i,7);
+   line(2 + i,7,7 + i,2);
+   
+   line(2 + i*2,2,7 + i*2,7);
+   line(2 + i*2,7,7 + i*2,2);
 
 }
   
