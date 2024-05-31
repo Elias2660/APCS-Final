@@ -1,5 +1,5 @@
 
-
+import java.util.Arrays;
 public class TwentyFortyEight {
     int[][] board;
     Patch[] patches = new Patch[16];
@@ -33,7 +33,7 @@ public class TwentyFortyEight {
     public TwentyFortyEight(PApplet papplet) {
         applet = papplet;
         
-        surface.setSize(WIDTH, HEIGHT);
+        windowResize(WIDTH, HEIGHT);
         // size(310, 310);
         applet.background(255, 231, 201);
         
@@ -82,14 +82,14 @@ public class TwentyFortyEight {
                 lastPressed = false;
                 if (key == CODED) {
                     if (keyCode == UP) {
-                        for (int r = 0; r < 4; r++) {
-                            for (int c = 3; c >= 0; c--) {
+                        for (int c = 0; c < 4; c++) {
+                            for (int r = 0; r <= 3; r++) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
                                 int next = r - 1;
                                 if (next >= 0 && next <= 3) {
-                                    while(next > 0 && next < 3 && board[r][next] == 0) {
+                                    while(next > 0 && next < 3 && board[next][c] == 0) {
                                         next--;
                                     }
                                     if (board[next][c] == board[r][c] && board[r][c] != 0) {
@@ -105,8 +105,8 @@ public class TwentyFortyEight {
                         }
                     } 
                     if (keyCode == DOWN) {
-                        for (int r = 0; r < 4; r++) {
-                            for (int c = 0; c < 4; c++) {
+                        for (int c = 0; c < 4; c++) {
+                            for (int r = 3; r >= 0; r--) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
@@ -174,12 +174,8 @@ public class TwentyFortyEight {
                 }
                 syncP();
                 addRandomElement();
-                // try {
-                
-                //     TimeUnit.SECONDS.sleep(1);
-            // } catch(InterruptedException e) {
-                
-            // }
+                System.out.println("key pressed");
+                System.out.println(Arrays.deepToString(board).replaceAll("],", "],\n"));
             }
             
             
@@ -237,7 +233,7 @@ public class TwentyFortyEight {
         // sync the board with the patches
         // sync the patches with the board
         for (int i = 0; i < 16; i++) {
-            board[i / 4][i % 4] =  patches[i].level;
+            board[i / 4][i % 4] = patches[i].level;
         }
     }
     
