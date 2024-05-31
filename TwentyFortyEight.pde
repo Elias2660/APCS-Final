@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 public class TwentyFortyEight {
     int[][] board;
     Patch[] patches = new Patch[16];
@@ -91,6 +92,7 @@ public class TwentyFortyEight {
                                         board[next][c] = board[r][c];
                                         board[r][c] = 0;
                                     } 
+                                    
                                 }
                             }
                         }
@@ -103,16 +105,17 @@ public class TwentyFortyEight {
                                 // if the element is equal; merge
                                 int next = r + 1;
                                 if (next >= 0 && next <= 3) {
-                                    while(next > 0 && next < 3 && board[r][next] == 0) {
+                                    while(next > 0 && next < 3 && board[next][c] == 0) {
                                         next++;
                                     }
-                                    if (board[r][next] == board[r][c] && board[r][c] != 0) {
-                                        board[r][next] += 1;
+                                    if (board[next][c] == board[r][c] && board[r][c] != 0) {
+                                        board[next][c] += 1;
                                         board[r][c] = 0;
-                                    } else if (board[r][next] == 0) {
-                                        board[r][next] = board[r][c];
+                                    } else if (board[next][c] == 0) {
+                                        board[next][c] = board[r][c];
                                         board[r][c] = 0;
                                     } 
+                                    
                                 }
                             }
                         }
@@ -140,104 +143,110 @@ public class TwentyFortyEight {
                         }
                     }
                     if (keyCode == RIGHT) {
-                        for (int r = 0; r < 4; r++) {
-                            for (int c = 0; c < 4; c++) {
+                        for (int c = 0; c < 4; c++) {
+                            for (int r = 0; r < 4; r++) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
                                 int next = c + 1;
                                 if (next >= 0 && next <= 3) {
-                                    while(next > 0 && next < 3 && board[next][c] == 0) {
+                                    while(next > 0 && next < 3 && board[r][next] == 0) {
                                         next++;
                                     }
-                                    if (board[next][c] == board[r][c] && board[r][c] != 0) {
-                                        board[next][c] += 1;
+                                    if (board[r][next] == board[r][c] && board[r][c] != 0) {
+                                        board[r][next] += 1;
                                         board[r][c] = 0;
-                                    } else if (board[next][c] == 0) {
-                                        board[next][c] = board[r][c];
+                                    } else if (board[r][next] == 0) {
+                                        board[r][next] = board[r][c];
                                         board[r][c] = 0;
                                     } 
-                                }
+                                    }
                             }
                         }   
                     }
                 }
+                syncP();
+                addRandomElement();
+                try {
+
+                TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+
+                }
             }
-            sync();
-        }
-        
-        
-        stroke(127, 80, 20);
-        fill(127, 80, 20);
-        applet.rect(10, 10, 600, 600, 20);
-        sync();
-        // draw patches
-        for (int i = 0; i < patches.length; i++) {
-            patches[i].setValue(valueArray[patches[i].level]);
-            patches[i].setColor(colorArray[patches[i].level]);
             
             
-            if (patches[i].level != 0) {
+            
+            stroke(127, 80, 20);
+            fill(127, 80, 20);
+            applet.rect(10, 10, 600, 600, 20);
+            syncP();
+            // draw patches
+            for (int i = 0; i < patches.length; i++) {
                 patches[i].setValue(valueArray[patches[i].level]);
+                patches[i].setColor(colorArray[patches[i].level]);
                 
-                if (!patches[i].showText) {
-                    patches[i].toggleText();
+                
+                if (patches[i].level != 0) {
+                    patches[i].setValue(valueArray[patches[i].level]);
+                    
+                    if (!patches[i].showText) {
+                        patches[i].toggleText();
+                    }
+                } else if (patches[i].level == 0) {
+                    if (patches[i].showText) {
+                        patches[i].toggleText();
+                    }
                 }
-            } else if (patches[i].level == 0) {
-                if (patches[i].showText) {
-                    patches[i].toggleText();
+                
+                
+                
+                patches[i].draw();
+            }
+        }
+    }
+    
+    public int getPatchIndex(int row, int col) {
+        return row * 4 + col;
+    }
+    
+    public void checkLost() {
+        // checkif the game is lost
+        // if there are no more moves
+        // if there are no more empty spaces
+        // if there are no more merges
+    }
+    
+    // work onsync b and sync P!!!!!!
+    public void syncP() {
+        // sync the board with the patches
+        // sync the patches with the board
+        for (int i = 0; i < 16; i++) {
+            patches[i].level = board[i / 4][i % 4];
+            }
+        }
+    
+    public void syncB() {
+        // sync the board with the patches
+        // sync the patches with the board
+        for (int i = 0; i < 16; i++) {
+            board[i / 4][i % 4] =  patches[i].level;
+            }
+        }
+    
+    public void addRandomElement() {
+        // add a random element to the board
+        // if there are no more empty spaces
+        // if there are no more moves
+        syncB();
+        syncP();
+        ArrayList < Patch > empty = new ArrayList < Patch > ();
+        for (Patch p : patches) {
+            if (p.level == 0) {
+                empty.add(p);
                 }
             }
-            
-            
-            
-            patches[i].draw();
+        empty.get((int)random(empty.size())).setLevel((int)(Math.random() * 2) + 1);
+        syncB();
         }
-    }
-
-public int getPatchIndex(int row, int col) {
-    return row * 4 + col;
-}
-
-public void checkLost() {
-    // check if the game is lost
-    // if there are no more moves
-    // if there are no more empty spaces
-    // if there are no more merges
-}
-
-// ! work on sync b and sync P!!!!!!
-public void syncB() {
-    // sync the board with the patches
-    // sync the patches with the board
-    for (int i = 0; i < 16; i++) {
-            patches[i].level = board[i / 4][i % 4];
-    }
-}
-
-public void syncP() {
-    // sync the board with the patches
-    // sync the patches with the board
-    for (int i = 0; i < 16; i++) {
-        if (patches[i].level < board[i / 4][i % 4]) {
-            patches[i].level = board[i / 4][i % 4];
-        } else if (patches[i].level > board[i / 4][i % 4]) {
-            board[i / 4][i % 4] = patches[i].level;
-        }
-    }
-}
-
-public void addRandomElement() {
-    // add a random element to the board
-    // if there are no more empty spaces
-    // if there are no more moves
-    ArrayList < Patch > empty = new ArrayList < Patch > ();
-    for (Patch p : patches) {
-        if (p.level == 0) {
-            empty.add(p);
-        }
-    }
-    empty.get((int)random(empty.size())).setLevel((int)(Math.random() * 2) + 1);
-    sync();
-}
     }
