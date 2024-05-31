@@ -3,7 +3,7 @@ TwentyFortyEight tfe;
 
 void setup() { 
     size(400, 400);
-    surface.setResizable(true);
+    // surface.setResizable(true);
      tfe = new TwentyFortyEight(this);
 }
 
