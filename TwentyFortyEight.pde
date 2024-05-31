@@ -1,11 +1,14 @@
-import java.util.concurrent.TimeUnit;
+
+
 public class TwentyFortyEight {
     int[][] board;
     Patch[] patches = new Patch[16];
     boolean lost;
     PApplet applet; 
+    // boolean delayTick = false;
     int WIDTH = 620;
     int HEIGHT = 620;
+    
     
     color[] colorArray = new color[] {
         color(211, 211, 211), // 0
@@ -69,14 +72,18 @@ public class TwentyFortyEight {
         }
         addRandomElement();
     }
-    
+    boolean lastPressed = false;
     void draw() {
         if (!lost) {
             if (keyPressed) {
+                lastPressed = true;
+            }
+            else if (!keyPressed && lastPressed) {
+                lastPressed = false;
                 if (key == CODED) {
                     if (keyCode == UP) {
-                        for (int c = 0; c < 4; c++) {
-                            for (int r = 3; r >= 0; r--) {
+                        for (int r = 0; r < 4; r++) {
+                            for (int c = 3; c >= 0; c--) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
@@ -98,8 +105,8 @@ public class TwentyFortyEight {
                         }
                     } 
                     if (keyCode == DOWN) {
-                        for (int c = 0; c < 4; c++) {
-                            for (int r = 0; r < 4; r++) {
+                        for (int r = 0; r < 4; r++) {
+                            for (int c = 0; c < 4; c++) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
@@ -121,8 +128,8 @@ public class TwentyFortyEight {
                         }
                     }
                     if (keyCode == LEFT) {
-                        for (int c = 0; c < 4; c++) {
-                            for (int r = 0; r < 4; r++) {
+                        for (int r = 0; r < 4; r++) {
+                            for (int c = 0; c < 4; c++) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
@@ -143,8 +150,8 @@ public class TwentyFortyEight {
                         }
                     }
                     if (keyCode == RIGHT) {
-                        for (int c = 0; c < 4; c++) {
-                            for (int r = 0; r < 4; r++) {
+                        for (int r = 0; r < 4; r++) {
+                            for (int c = 3; c >= 0; c++) {
                                 // check for the nearest element that is not equal to that element
                                 // and then move up to one below that element; 
                                 // if the element is equal; merge
@@ -160,19 +167,19 @@ public class TwentyFortyEight {
                                         board[r][next] = board[r][c];
                                         board[r][c] = 0;
                                     } 
-                                    }
+                                }
                             }
                         }   
                     }
                 }
                 syncP();
                 addRandomElement();
-                try {
-
-                TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-
-                }
+                // try {
+                
+                //     TimeUnit.SECONDS.sleep(1);
+            // } catch(InterruptedException e) {
+                
+            // }
             }
             
             
@@ -223,16 +230,16 @@ public class TwentyFortyEight {
         // sync the patches with the board
         for (int i = 0; i < 16; i++) {
             patches[i].level = board[i / 4][i % 4];
-            }
         }
+    }
     
     public void syncB() {
         // sync the board with the patches
         // sync the patches with the board
         for (int i = 0; i < 16; i++) {
             board[i / 4][i % 4] =  patches[i].level;
-            }
         }
+    }
     
     public void addRandomElement() {
         // add a random element to the board
@@ -244,9 +251,9 @@ public class TwentyFortyEight {
         for (Patch p : patches) {
             if (p.level == 0) {
                 empty.add(p);
-                }
             }
+        }
         empty.get((int)random(empty.size())).setLevel((int)(Math.random() * 2) + 1);
         syncB();
-        }
     }
+}
