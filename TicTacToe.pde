@@ -2,7 +2,8 @@ public class TicTacToe implements Game {
   private int player1, player2 = 0;
   private boolean isPlayer1Turn = false;
   private int[][] board = new int[3][3];
-  private float scale = 2;
+  private int windowSize = 800;
+  private float scaleFactor = windowSize / 40.0;
   
   public TicTacToe() {}
   
@@ -17,37 +18,35 @@ public class TicTacToe implements Game {
   }
   
   public void draw() {
+    windowResize(windowSize,windowSize);
     strokeWeight(1);
     fill(0,0,0,0);
     pushMatrix();
-    translate(width/2 - 15*10, height / 2 - 15*10);
-    scale(10);
+    
+    translate(width/2 - 15*scaleFactor, height / 2 - 15*scaleFactor);
+    scale(scaleFactor);
     drawGrid();
-    //addX(0,1);
-    int x = 0;
-    int y = 0;
+    
+    int r = 0;
+    int c = 0;
     if(mousePressed){
-      if(mouseX < (width / 3)) x = 0;
-      else if(mouseX < (width / 3)) x = 1;
-      else if(mouseX > 2*(width / 3)) x = 2;
+      if(mouseX < (width / 3)) r = 0;
+      else if(mouseX > (width / 3) && mouseX < 2*(width / 3)) r = 1;
+      else r = 2;
       
-      if(mouseY < (height / 3)) y = 0;
-      else if(mouseY < (height / 3)) y = 1;
-      else if(mouseY > 2*(height / 3)) y =2;
-      System.out.printf("%s,%s\n", y, x);
+      if(mouseY < (height / 3)) c = 0;
+      else if(mouseY > (height / 3) && mouseY < 2*(height / 3)) c = 1;
+      else c = 2;
       
       
     }
     
-    //mousePressed();
-    //148, 42
-    //46, 148
-    popMatrix();
+    if(mousePressed){
+      addO(r, c);
+    }
     
     
-    //drawGrid();
-    //
-    
+    popMatrix();    
   }
   
   private void drawGrid(){
@@ -57,17 +56,17 @@ public class TicTacToe implements Game {
     line(0,20,30,20);
   }
   
-  private void addX(int x, int y) {
-   board[x][y] = 1;
-   float i = 10.5;
-   line(2+i*y,2+i*x,7+i*y,7+i*x);
-   line(2+i*y,7+i*x,7+i*y,2+i*x);
+  private void addX(int r, int c) {
+   board[r][c] = 1;
+   float offset = 10.5;
+   line(2 + offset*r, 2 + offset*c, 7 + offset*r, 7 + offset*c);
+   line(2 + offset*r, 7 + offset*c, 7 + offset*r, 2 + offset*c);
 }
   
-  private void addO(int x, int y) {
-   board[x][y] = 2;
-   float i = 10;
-   ellipse(5+i*y,5+i*x, 6, 6);
+  private void addO(int r, int c) {
+   board[r][c] = 2;
+   float offset = 10;
+   ellipse(5 + offset*r, 5 + offset*c, 6, 6);
   }
   
   private void reset() {
