@@ -1,37 +1,30 @@
 public class Patch {
 
     // may need to add rounding later
-    color c;
-    int x; 
-    int w;
-    int h;
-    int y;
-    int level;
+    private color c;
+    private int x;  
+    private int w; 
+    private int h;
+    private int y;
+    private int level;
+    private int rounding = 10;
 
-    boolean showText = false;
+    private boolean showText = false;
     
-    PApplet applet;
-    int value;
-    // public Patch(PApplet applet, int x, int y, int w, int h, color c) {
-    //     this.applet = applet;
-    //     this.x = x;
-    //     this.y = y;
-    //     this.c = c;
-    //     this.w = w;
-    //     this.h = h;
-    //     level = 0;
-    //     // println(c);
-    // }
-    
-    public Patch(PApplet applet, int x, int y, int w, int h, color c) {
+    private PApplet applet;
+    private int value;
+    private boolean stroke = false;
+
+    public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke) {
         this.applet = applet;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.c = c;
+        this.rounding = (int) rounding;
         value = 0;
-        // println(c);
+        this.stroke = stroke;
     }
 
     public Patch(PApplet applet, int x, int y, int w, int h, int level, color c) {
@@ -59,10 +52,13 @@ public class Patch {
     
     void draw() {
         //When working in colorMode(RGB, 255), you can achieve the same results as red() but with greater speed by using the right shift operator (>>) with a bit mask
-        // ! finish work
         stroke(red(c), green(c), blue(c));
         fill(red(c), green(c), blue(c));
-        applet.rect(x, y, w, h, 10);
+        if (stroke) {
+            applet.stroke(color(58,58,60));
+            applet.strokeWeight(3);
+        }
+        applet.rect(x, y, w, h, rounding);
 
         if (showText) {
             applet.fill(0);
