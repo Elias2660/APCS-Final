@@ -1,4 +1,7 @@
-
+/*
+TODO: add a points monitor at the back
+TODO: Checklost
+*/
 import java.util.Arrays;
 public class TwentyFortyEight {
     int[][] board;
@@ -109,7 +112,6 @@ public class TwentyFortyEight {
                 patches[i].setValue(valueArray[patches[i].level]);
                 patches[i].setColor(colorArray[patches[i].level]);
                 
-                
                 if (patches[i].level != 0) {
                     patches[i].setValue(valueArray[patches[i].level]);
                     
@@ -122,15 +124,9 @@ public class TwentyFortyEight {
                     }
                 }
                 
-                
-                
                 patches[i].draw();
             }
         }
-    }
-    
-    public int getPatchIndex(int row, int col) {
-        return row * 4 + col;
     }
     
     public void checkLost() {
