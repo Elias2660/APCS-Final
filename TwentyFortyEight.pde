@@ -4,13 +4,13 @@ TODO: Checklost
 */
 import java.util.Arrays;
 public class TwentyFortyEight {
-    int[][] board;
-    Patch[] patches = new Patch[16];
-    boolean lost;
-    PApplet applet; 
+    private int[][] board;
+    private Patch[] patches = new Patch[16];
+    private boolean lost;
+    private PApplet applet; 
     // boolean delayTick = false;
-    int WIDTH = 620;
-    int HEIGHT = 620;
+    private int WIDTH = 620;
+    private int HEIGHT = 620;
     
     
     color[] colorArray = new color[] {
@@ -31,7 +31,7 @@ public class TwentyFortyEight {
     int[] valueArray = new int[] {
         0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048
     };
-    
+
     
     public TwentyFortyEight(PApplet papplet) {
         applet = papplet;
