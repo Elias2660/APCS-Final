@@ -12,7 +12,7 @@ public class Patch {
     private boolean showText = false;
     
     private PApplet applet;
-    private int value;
+    private String value; // Changed data type to String
     private boolean stroke = false;
 
     public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke) {
@@ -23,7 +23,7 @@ public class Patch {
         this.h = h;
         this.c = c;
         this.rounding = (int) rounding;
-        value = 0;
+        value = "0"; // Initialize with a string value
         this.stroke = stroke;
     }
 
@@ -67,11 +67,11 @@ public class Patch {
         }
     }
     
-    public int getValue() {
+    public String getValue() { // Changed return type to String
         return value;
     }
     
-    public void setValue(int value) {
+    public void setValue(String value) { // Changed parameter type to String
         this.value = value;
     }
     

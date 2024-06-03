@@ -19,6 +19,7 @@ public class SortWords {
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
+            System.out.println( "hi");
             f.close();
         } catch (Exception e) {
             e.printStackTrace();

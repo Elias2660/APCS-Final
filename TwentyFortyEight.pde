@@ -109,11 +109,11 @@ public class TwentyFortyEight {
             syncP();
             // draw patches
             for (int i = 0; i < patches.length; i++) {
-                patches[i].setValue(valueArray[patches[i].level]);
+                patches[i].setValue(String.valueOf(valueArray[patches[i].level]));
                 patches[i].setColor(colorArray[patches[i].level]);
                 
                 if (patches[i].level != 0) {
-                    patches[i].setValue(valueArray[patches[i].level]);
+                    patches[i].setValue(String.valueOf(valueArray[patches[i].level]));
                     
                     if (!patches[i].showText) {
                         patches[i].toggleText();
