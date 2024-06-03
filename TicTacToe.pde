@@ -4,6 +4,7 @@ public class TicTacToe implements Game {
   private int[][] board = new int[3][3];
   private int windowSize = 800;
   private float scaleFactor = windowSize / 40.0;
+  private boolean win = false;
   
   public TicTacToe() {}
   
@@ -19,20 +20,19 @@ public class TicTacToe implements Game {
   
   void  mouseClicked(int r, int c) {
       if(mouseButton == LEFT && isPlayer1Turn && board[r][c] == 0){
-        addX(r,c);
+        board[r][c] = 1;
         if(checkWin(r, c)){
          player1++; 
-         reset();
-         delay(1000);
+         win = true;
         }
         isPlayer1Turn = !isPlayer1Turn;
       }
       else if(mouseButton == RIGHT && !isPlayer1Turn && board[r][c] == 0){
-        addO(r, c);
+        board[r][c] = 2;
         if(checkWin(r, c)){
-         player2++; 
-         reset();
-         delay(1000);
+         player2++;
+         win = true;
+         
         }
         isPlayer1Turn = !isPlayer1Turn;
       }
@@ -47,7 +47,7 @@ public class TicTacToe implements Game {
     
     translate(width/2 - 15*scaleFactor, height / 2 - 15*scaleFactor);
     scale(scaleFactor);
-    drawGrid();
+    
     
     int r = 0;
     int c = 0;
@@ -65,6 +65,7 @@ public class TicTacToe implements Game {
     
     
     mouseClicked(r, c);
+    drawGrid();
     
     
     popMatrix();    
@@ -78,17 +79,23 @@ public class TicTacToe implements Game {
     line(0,10,30,10);
     line(0,20,30,20);
     
+    for(int i = 0; i < board.length; i++) for(int j = 0; j < board[0].length; j++){
+      if(board[i][j] == 1){
+        addX(i,j);
+      }
+      else if(board[i][j] == 2) addO(i, j);
+    }
+    
   }
   
   private void addX(int r, int c) {
-   board[r][c] = 1;
+   
    float offset = 10.5;
    line(2 + offset*r, 2 + offset*c, 7 + offset*r, 7 + offset*c);
    line(2 + offset*r, 7 + offset*c, 7 + offset*r, 2 + offset*c);
 }
   
   private void addO(int r, int c) {
-   board[r][c] = 2;
    float offset = 10;
    ellipse(5 + offset*r, 5 + offset*c, 6, 6);
   }
