@@ -3,7 +3,7 @@ public class Wordle {
     private Patch[] patches;
     private PApplet papplet;
     private int currentRow = 0;
-
+    
     public Wordle(PApplet papplet) {
         this.papplet = papplet;
         papplet.background(color(18,18,19));
@@ -36,5 +36,21 @@ public class Wordle {
                 p.draw();
             }
         }
+    }
+    
+    private boolean isWordValid(String word) {
+        return true;
+    }
+    
+    private String CharArrayToWord(char[]  word) {
+        String str = "";
+        for (char c : word) {
+            str += c;
+        }
+        return str;
+    }
+    
+    private char[] WordToCharArray(String word) {
+        return word.toCharArray();
     }
 }
