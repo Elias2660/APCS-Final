@@ -1,6 +1,6 @@
 public class TicTacToe implements Game {
   private int player1, player2 = 0;
-  private boolean isPlayer1Turn = false;
+  private boolean isPlayer1Turn = true;
   private int[][] board = new int[3][3];
   private int windowSize = 800;
   private float scaleFactor = windowSize / 40.0;
@@ -16,6 +16,28 @@ public class TicTacToe implements Game {
   void mousePressed(){
     System.out.printf("%s, %s", mouseX, mouseY);
   }
+  
+  void  mouseClicked(int r, int c) {
+      if(mouseButton == LEFT && isPlayer1Turn && board[r][c] == 0){
+        addX(r,c);
+        if(checkWin(r, c)){
+         player1++; 
+         reset();
+         delay(1000);
+        }
+        isPlayer1Turn = !isPlayer1Turn;
+      }
+      else if(mouseButton == RIGHT && !isPlayer1Turn && board[r][c] == 0){
+        addO(r, c);
+        if(checkWin(r, c)){
+         player2++; 
+         reset();
+         delay(1000);
+        }
+        isPlayer1Turn = !isPlayer1Turn;
+      }
+      //redraw();
+   }
   
   public void draw() {
     windowResize(windowSize,windowSize);
@@ -41,12 +63,13 @@ public class TicTacToe implements Game {
       
     }
     
-    if(mousePressed){
-      addO(r, c);
-    }
+    
+    mouseClicked(r, c);
     
     
     popMatrix();    
+    fill(255);
+    text("PLAYER 1: " + player1 + "\nPLAYER 2: " + player2, 10, 10, 300, 30); 
   }
   
   private void drawGrid(){
@@ -54,6 +77,7 @@ public class TicTacToe implements Game {
     line(20,0,20,30);
     line(0,10,30,10);
     line(0,20,30,20);
+    
   }
   
   private void addX(int r, int c) {
@@ -70,8 +94,11 @@ public class TicTacToe implements Game {
   }
   
   private void reset() {
-    isPlayer1Turn = false;
+    isPlayer1Turn = true;
     board = new int[3][3];
+    background(#cccccc);
+    drawGrid();
+    
   }
   
   private boolean checkWin(int x, int y) {
