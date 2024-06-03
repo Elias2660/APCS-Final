@@ -19,7 +19,6 @@ public class SortWords {
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
-            System.out.println( "hi");
             f.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,7 +31,6 @@ public class SortWords {
         try {
             File fiveLetterWords = new File("Fivers.txt");
             if (fiveLetterWords.createNewFile()) {
-                System.out.println("Created new file");
             }
         } catch (IOException E) {
             E.printStackTrace();
@@ -40,7 +38,7 @@ public class SortWords {
 
         ArrayList<String> fiveLetterers = new ArrayList<String>();
         try {
-            Scanner words = new Scanner(new File("words.txt"));
+            Scanner words = new Scanner(new File("/Users/eliasxu/Documents/Projects/apcsa-assignments-Elias2660/main/words.txt"));
             while (words.hasNextLine()) {
                 String word = words.nextLine();
                 if (word.length() == 5 && isAlpha(word)) {
@@ -48,7 +46,6 @@ public class SortWords {
                 }
             }
             words.close();
-            System.out.println("Got all the letters");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +55,6 @@ public class SortWords {
             for (String word: fiveLetterers) {
                 fLettersFile.write(word +"\n");
             }
-            System.out.println("Written all the letters, length " + fiveLetterers.size());
             fLettersFile.close();
         } catch (Exception e) {
             e.printStackTrace();

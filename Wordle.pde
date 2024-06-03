@@ -1,3 +1,8 @@
+/*
+TODO: WORK on LOSING/WINNING
+TODO: WORK on the color scheme
+*/
+
 import java.util.Arrays;
 public class Wordle {
     private Patch[] patches;
@@ -33,108 +38,114 @@ public class Wordle {
         
         for (int h = BORDER_WIDTH; h + PATCH_HEIGHT + BORDER_WIDTH <= HEIGHT; h += PATCH_HEIGHT + BORDER_WIDTH) {
             for (int w = BORDER_WIDTH; w + PATCH_WIDTH + BORDER_WIDTH <= WIDTH; w += PATCH_WIDTH + BORDER_WIDTH) {
-                System.out.println("w: " + w + " h: " + h);
-                Patch p = new Patch(papplet, w, h, PATCH_WIDTH, PATCH_HEIGHT, color(18,18,19), 0.0, true);
+                Patch p = new Patch(papplet, w, h, PATCH_WIDTH, PATCH_HEIGHT, color(18,18,19), 0.0, true, color(255, 255, 255));
                 patches[index] = p;
                 index++;
             }
         }
         words = SortWords.getWords();
-        System.out.println(words.toString());
         // set random word to be the word of choice
         answer = words.get((int) random(0, words.size()));
+        // System.out.println(answer);
     }
     
     public void draw() {
         // update the current row
-        for (int i = currentRow * 4; i < currentRow * 4 + 5; i ++) {
-            patches[i].setValue(String.valueOf(currentRowLetters[i - currentRow * 4]));
+        for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
+            if (currentRowLetters[i - currentRow * 5] != ' ' && !patches[i].isShowingText()) {
+                patches[i].toggleText();
+            }
+            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
         }
         
         for (int i = 0; i < 30;  i ++) {
             patches[i].draw();
         }
-        
-        if (keyPressed && ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z') || (key == CODED && (keyCode == ENTER || keyCode == DELETE)))) {
+        if (keyPressed && (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) || ((key == ENTER || key == RETURN || key == DELETE || key == BACKSPACE)))) {
             if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+                // System.out.println("letter pressed: " + key);
                 letterPressed = true;
                 codedPressed = false;
-            } else if (key == CODED && keyCode == ENTER) {
+            } else if ((key == ENTER || key == DELETE || key == RETURN || key == BACKSPACE)) {
+                // System.out.println("coded pressed" );
                 codedPressed = true;
                 letterPressed = false;
             }
         } else if (!keyPressed && (letterPressed) && ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z'))) {
+            // System.out.println("entering letter");
             if (numberOfLettersInCurrentRow < 5) {
                 currentRowLetters[numberOfLettersInCurrentRow] = Character.toUpperCase(key);
                 numberOfLettersInCurrentRow++;
+                letterPressed = false;
             }
-        } else if (!keyPressed && (key == CODED && (keyCode == ENTER || keyCode == DELETE))) {
-            if (keyCode == ENTER && numberOfLettersInCurrentRow == 5) {
+        } else if (!keyPressed && codedPressed && (key == ENTER || key == DELETE || key == RETURN || key == BACKSPACE)) {
+            if ((key == ENTER || key == RETURN) && numberOfLettersInCurrentRow == 5) {
+                // System.out.println("entering coded");
                 // use the random word generator to check if the word is valid
                 String word = CharArrayToWord(currentRowLetters);
                 if (WordValid(word)) {
                     char[] answerArray = WordToCharArray(answer.toUpperCase());
-                    for (int i = currentRow * 4; i < currentRow * 4 + 5; i ++) {
+                    for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
                         // if the letter is at the same position as the answer
-                        if (currentRowLetters[i - currentRow * 4] == answerArray[i - currentRow * 4]) {
-                            patches[i].setValue(String.valueOf(currentRowLetters[i - currentRow * 4]));
-                            patches[i].setColor(GREEN);
-                        } else if (answer.contains(String.valueOf(currentRowLetters[i - currentRow * 4]))) {
+                        if (currentRowLetters[i - currentRow * 5] == answerArray[i - currentRow * 5]) {
+                            patches[i].setValue(String.valueOf(currentRowLetters[i - currentRow * 5]));
+                            patches[i].setColor(color(0, 255, 0));
+                        } else if (answer.contains(String.valueOf(currentRowLetters[i - currentRow * 5]))) {
                             // count all occurences of that letter in the answer array
                             int answerOccurences = 0;
                             int currentRowOccurences = 0;
-                            for (char e: answerArray) {
-                                if (e == currentRowLetters[i - currentRow * 4]) {
+                            for (char e : answerArray) {
+                                if (e == currentRowLetters[i - currentRow * 5]) {
                                     answerOccurences++;
                                 }
                             }
-                            for (int j = 0; j < i - currentRow * 4; j++) {
-                                if (currentRowLetters[j] == currentRowLetters[i - currentRow * 4]) {
+                            for (int j = 0; j < i - currentRow * 5; j++) {
+                                if (currentRowLetters[j] == currentRowLetters[i - currentRow * 5]) {
                                     currentRowOccurences++;
                                 }
                             }
-                            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 4]));
+                            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
                             if (currentRowOccurences < answerOccurences) {
-                                patches[i].setColor(YELLOW);
+                                patches[i].setColor(color(255, 255, 0));
                             }
                         }
                         
-                        //reset to new thing
-                        currentRow++;
-                        numberOfLettersInCurrentRow = 0;
-                        currentRowLetters = new char[]{' ',' ',' ',' ',' '};
                     }
+                    //reset to new thing
+                    currentRow++;
+                    numberOfLettersInCurrentRow = 0;
+                    currentRowLetters = new char[]{' ',' ',' ',' ',' '};
                 }
-            } else if (keyCode == DELETE && numberOfLettersInCurrentRow > 0) {
-                patches[currentRow * 4 + numberOfLettersInCurrentRow - 1].setValue(String.valueOf(' '));
+            } else if ((key == DELETE || key == BACKSPACE) && numberOfLettersInCurrentRow > 0) {
+                patches[currentRow * 5 + numberOfLettersInCurrentRow - 1].setValue(String.valueOf(' '));
                 numberOfLettersInCurrentRow--;
                 currentRowLetters[numberOfLettersInCurrentRow] = ' ';
             }
+            codedPressed = false;
             
-            
-        }}
-
-        private boolean checkLost() {
-            return false;
-        }
-
-        private boolean checkWon() {
-            return false;
-        }
-
-        private boolean WordValid(String word) {
-            return words.contains(word.strip().toLowerCase());
-        }
-        
-        private String CharArrayToWord(char[]  word) {
-            String str = "";
-            for (char c : word) {
-                str += c;
-            }
-            return str;
-        }
-        
-        private char[] WordToCharArray(String word) {
-            return word.toCharArray();
-        }
+        } }
+    
+    private boolean checkLost() {
+        return false;
     }
+    
+    private boolean checkWon() {
+        return false;
+    }
+    
+    private boolean WordValid(String word) {
+        return words.contains(word.strip().toLowerCase());
+    }
+    
+    private String CharArrayToWord(char[]  word) {
+        String str = "";
+        for (char c : word) {
+            str += c;
+        }
+        return str;
+    }
+    
+    private char[] WordToCharArray(String word) {
+        return word.toCharArray();
+    }
+}
