@@ -8,14 +8,14 @@ public class Patch {
     private int y;
     private int level;
     private int rounding = 10;
-
+    private color textColor; 
     private boolean showText = false;
     
     private PApplet applet;
     private String value; // Changed data type to String
     private boolean stroke = false;
 
-    public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke) {
+    public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke, color textColor) {
         this.applet = applet;
         this.x = x;
         this.y = y;
@@ -25,6 +25,7 @@ public class Patch {
         this.rounding = (int) rounding;
         value = "0"; // Initialize with a string value
         this.stroke = stroke;
+        this.textColor = textColor;
     }
 
     public Patch(PApplet applet, int x, int y, int w, int h, int level, color c) {
@@ -40,6 +41,10 @@ public class Patch {
 
     public void toggleText() {
         showText = !showText;
+    }
+
+    public boolean isShowingText() {
+        return showText;
     }
 
     public int getLevel() {
@@ -61,7 +66,7 @@ public class Patch {
         applet.rect(x, y, w, h, rounding);
 
         if (showText) {
-            applet.fill(0);
+            applet.fill(textColor);
             applet.textSize(20);
             applet.text(value, x + w/2, y + h/2);
         }
