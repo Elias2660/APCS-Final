@@ -1,6 +1,7 @@
 /*
 TODO: add a points monitor at the back
 TODO: Checklost
+TODO: Fix the patch problem
 */
 import java.util.Arrays;
 public class TwentyFortyEight {

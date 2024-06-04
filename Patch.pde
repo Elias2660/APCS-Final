@@ -1,18 +1,18 @@
 public class Patch {
 
     // may need to add rounding later
-    private color c;
+    private color c = color(0);
     private int x;  
     private int w; 
     private int h;
     private int y;
-    private int level;
+    private int level = 0;
     private int rounding = 10;
-    private color textColor; 
+    private color textColor = color(0); 
     private boolean showText = false;
     
     private PApplet applet;
-    private String value; // Changed data type to String
+    private String value = ""; // Changed data type to String
     private boolean stroke = false;
 
     public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke, color textColor) {
