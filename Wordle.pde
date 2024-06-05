@@ -15,8 +15,9 @@ public class Wordle {
     private int currentRow = 0;
     private int numberOfLettersInCurrentRow = 0;
     
-    color GREEN = color(0, 255, 0);
-    color YELLOW = color(255, 255, 0);
+    private color GREEN = color(83, 141, 78);
+    private color YELLOW = color(181, 159, 59);
+    private color GREY = color(58,58,60);
     // the ANSWEr
     private String answer;
     
@@ -46,7 +47,7 @@ public class Wordle {
         words = SortWords.getWords();
         // set random word to be the word of choice
         answer = words.get((int) random(0, words.size()));
-        // System.out.println(answer);
+        System.out.println(answer);
     }
     
     public void draw() {
@@ -88,9 +89,9 @@ public class Wordle {
                     for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
                         // if the letter is at the same position as the answer
                         if (currentRowLetters[i - currentRow * 5] == answerArray[i - currentRow * 5]) {
-                            patches[i].setValue(String.valueOf(currentRowLetters[i - currentRow * 5]));
-                            patches[i].setColor(color(0, 255, 0));
-                        } else if (answer.contains(String.valueOf(currentRowLetters[i - currentRow * 5]))) {
+                            // patches[i].setValue(String.valueOf(currentRowLetters[i - currentRow * 5]));
+                            patches[i].setColor(GREEN);
+                        } else if (answer.toUpperCase().contains(String.valueOf(currentRowLetters[i - currentRow * 5]).strip().toUpperCase())) {
                             // count all occurences of that letter in the answer array
                             int answerOccurences = 0;
                             int currentRowOccurences = 0;
@@ -104,12 +105,13 @@ public class Wordle {
                                     currentRowOccurences++;
                                 }
                             }
-                            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
+                            // patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
                             if (currentRowOccurences < answerOccurences) {
-                                patches[i].setColor(color(255, 255, 0));
+                                patches[i].setColor(YELLOW);
                             }
+                        } else {
+                            patches[i].setColor(GREY);
                         }
-                        
                     }
                     //reset to new thing
                     currentRow++;

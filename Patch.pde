@@ -60,7 +60,7 @@ public class Patch {
         stroke(red(c), green(c), blue(c));
         fill(red(c), green(c), blue(c));
         if (stroke) {
-            applet.stroke(color(58,58,60));
+            applet.stroke(c);
             applet.strokeWeight(3);
         }
         applet.rect(x, y, w, h, rounding);
