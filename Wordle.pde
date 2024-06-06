@@ -21,6 +21,10 @@ public class Wordle {
     // the ANSWEr
     private String answer;
     
+    // game wincons
+    private boolean won = false;
+    private boolean lost = false;
+    
     public Wordle(PApplet papplet) {
         this.papplet = papplet;
         papplet.background(color(18,18,19));
@@ -51,17 +55,10 @@ public class Wordle {
     }
     
     public void draw() {
+        // if (!won && !lost)
         // update the current row
-        for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
-            if (currentRowLetters[i - currentRow * 5] != ' ' && !patches[i].isShowingText()) {
-                patches[i].toggleText();
-            }
-            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
-        }
+        drawElements();
         
-        for (int i = 0; i < 30;  i ++) {
-            patches[i].draw();
-        }
         if (keyPressed && (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) || ((key == ENTER || key == RETURN || key == DELETE || key == BACKSPACE)))) {
             if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
                 // System.out.println("letter pressed: " + key);
@@ -127,8 +124,17 @@ public class Wordle {
             
         } }
     
-    private boolean checkLost() {
-        return false;
+    private void drawElements() {
+        for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
+            if (currentRowLetters[i - currentRow * 5] != ' ' && !patches[i].isShowingText()) {
+                patches[i].toggleText();
+            }
+            patches[i].setValue(Character.toString(currentRowLetters[i - currentRow * 5]));
+        }
+        
+        for (int i = 0; i < 30;  i ++) {
+            patches[i].draw();
+        }
     }
     
     private boolean checkWon() {
