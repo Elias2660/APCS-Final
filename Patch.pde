@@ -100,7 +100,8 @@ public class Patch {
         return c;
     }
     
-    public void setColor(color newColor) {
+    public Patch setColor(color newColor) {
         c = newColor;
+        return this;
     }
 }
