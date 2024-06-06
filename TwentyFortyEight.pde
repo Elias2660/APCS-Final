@@ -32,7 +32,7 @@ public class TwentyFortyEight {
     int[] valueArray = new int[] {
         0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048
     };
-
+    
     
     public TwentyFortyEight(PApplet papplet) {
         applet = papplet;
@@ -87,16 +87,16 @@ public class TwentyFortyEight {
                 lastPressed = false;
                 if (key == CODED) {
                     if (keyCode == UP) {
-                        changed = handleUP();
+                        changed = handleUP(board);
                     } 
                     if (keyCode == DOWN) {
-                        changed = handleDown();
+                        changed = handleDown(board);
                     }
                     if (keyCode == LEFT) {
-                        changed = handleLeft();
+                        changed = handleLeft(board);
                     }
                     if (keyCode == RIGHT) {
-                        changed = handleRight();
+                        changed = handleRight(board);
                     }
                 }
                 
@@ -130,174 +130,232 @@ public class TwentyFortyEight {
         }
     }
     
-    public void checkLost() {
-        // checkif the game is lost
-        // if there are no more moves
-        // if there are no more empty spaces
-        // if there are no more merges
-    }
     
-    // work onsync b and sync P!!!!!!
-    public void syncP() {
-        // sync the board with the patches
-        // sync the patches with the board
-        for (int i = 0; i < 16; i++) {
-            patches[i].level = board[i / 4][i % 4];
-        }
-    }
-    
-    public void syncB() {
-        // sync the board with the patches
-        // sync the patches with the board
-        for (int i = 0; i < 16; i++) {
-            board[i / 4][i % 4] = patches[i].level;
-        }
-    }
-    
-    public void addRandomElement() {
-        // add a random element to the board
-        // if there are no more empty spaces
-        // if there are no more moves
-        syncB();
-        syncP();
-        ArrayList < Patch > empty = new ArrayList < Patch > ();
-        for (Patch p : patches) {
-            if (p.level == 0) {
-                empty.add(p);
+        
+        // public void DrawPatches() {
+            
+        // }
+        
+        
+        
+        // work onsync b and sync P!!!!!!
+        public void syncP() {
+            // sync the board with the patches
+            // sync the patches with the board
+           for (int i =0; i < 16; i++) {
+                patches[i].level = board[i / 4][i % 4];
             }
         }
-        empty.get((int)random(empty.size())).setLevel((int)(Math.random() * 2) + 1);
-        syncB();
-    }
-    
-    
-    
-    private boolean handleUP() {
-        boolean changed = false;
-        for (int c = 0; c < 4; c++) {
-            for (int r = 0; r <= 3; r++) {
-                // check for the nearest element that is not equal to that element
-                // and then move up to one below that element; 
-                // if the element is equal; merge
-                int next = r - 1;
-                if (next >= 0 && next <= 3) {
-                    while(next > 0 && next < 3 && board[next][c] == 0) {
-                        next--;
-                    }
-                    if (board[next][c] == board[r][c] && board[r][c] != 0) {
-                        board[next][c] += 1;
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[next][c] == 0) {
-                        board[next][c] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[next + 1][c] == 0 && board[r][c] != 0) {
-                        board[next + 1][c] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    }
-                    
+        
+        public void syncB() {
+            // sync the board with the patches
+            // sync the patches with the board
+           for (int i =0; i < 16; i++) {
+                board[i / 4][i % 4] = patches[i].level;
+            }
+        }
+        
+        public void addRandomElement() {
+           // add a random element to the board
+            // if there are no more empty spaces
+                // if there are no more moves
+                    syncB();
+                syncP();
+            ArrayList < Patch > empty = new ArrayList < Patch > ();
+            for (Patch p: patches) {
+                if (p.level == 0) {
+                    empty.add(p);
                 }
             }
+            empty.get((int)random(empty.size())).setLevel((int)(Math.random() * 2) + 1);
+            syncB();
         }
-        return changed;
-    }
-    
-    
-    private boolean handleDown() {
-        boolean changed = false;
-        for (int c = 0; c < 4; c++) {
-            for (int r = 3; r >= 0; r--) {
-                // check for the nearest element that is not equal to that element
-                // and then move up to one below that element; 
-                // if the element is equal; merge
-                int next = r + 1;
-                if (next >= 0 && next <= 3) {
-                    while(next > 0 && next < 3 && board[next][c] == 0) {
-                        next++;
-                    }
-                    if (board[next][c] == board[r][c] && board[r][c] != 0) {
-                        board[next][c] += 1;
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[next][c] == 0) {
-                        board[next][c] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[next - 1][c] == 0 && board[r][c] != 0) {
-                        board[next - 1][c] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    }
-                    
-                }
-            }
-        }
-        return changed;
-    }
-    
-    
-    private boolean handleLeft() {
-        boolean changed = false;
-        for (int r = 0; r < 4; r++) {
-            for (int c = 0; c < 4; c++) {
-                // check for the nearest element that is not equal to that element
-                // and then move up to one below that element; 
-                // if the element is equal; merge
-                int next = c - 1;
-                if (next >= 0 && next <= 3) {
-                    while(next > 0 && next < 3 && board[r][next] == 0) {
-                        next--;
-                    }
-                    if (board[r][next] == board[r][c] && board[r][c] != 0) {
-                        board[r][next] += 1;
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[r][next] == 0) {
-                        board[r][next] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[r][next + 1] == 0 && board[r][c] != 0) {
-                        board[r][next + 1] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
+        
+        
+        
+        private boolean handleUP(int[][] board) {
+            boolean changed = false;
+           for (int c =0; c < 4; c++) {
+               for (int r =0; r <= 3; r++) {
+                   // check forthe nearest element that is not equal to that element
+                    // and then move up to one below that element; 
+                    // if the element is equal; merge
+                   int next = r- 1;
+                   if (next >= 0 && next <= 3) {
+                        while(next >0 && next < 3 && board[next][c] == 0) {
+                            next--;
+                        }
+                        if (board[next][c] == board[r][c] && board[r][c] != 0) {
+                            board[next][c] += 1;
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[next][c] == 0) {
+                            board[next][c] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[next + 1][c] == 0 && board[r][c] != 0) {
+                            board[next +1][c] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        }
+                        
                     }
                 }
             }
+            return changed;
         }
-        return changed;
-    }
-    
-    private boolean handleRight() {
-        boolean changed = false;
-        for (int r = 0; r < 4; r++) {
-            for (int c = 3; c >= 0; c--) {
-                // check for the nearest element that is not equal to that element
-                // and then move up to one below that element; 
-                // if the element is equal; merge
-                int next = c + 1;
-                if (next >= 0 && next <= 3) {
-                    while(next > 0 && next < 3 && board[r][next] == 0) {
-                        next++;
-                    }
-                    if (board[r][next] == board[r][c] && board[r][c] != 0) {
-                        board[r][next] += 1;
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[r][next] == 0) {
-                        board[r][next] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
-                    } else if (board[r][next - 1] == 0 && board[r][c] != 0) {
-                        board[r][next - 1] = board[r][c];
-                        board[r][c] = 0;
-                        changed = true;
+        
+        
+        private boolean handleDown(int[][] board) {
+            boolean changed = false;
+           for (int c =0; c < 4; c++) {
+               for (int r =3; r >= 0; r--) {
+                   // check forthe nearest element that is not equal to that element
+                    // and then move up to one below that element; 
+                    // if the element is equal; merge
+                   int next = r+ 1;
+                   if (next >= 0 && next <= 3) {
+                        while(next >0 && next < 3 && board[next][c] == 0) {
+                            next++;
+                        }
+                        if (board[next][c] == board[r][c] && board[r][c] != 0) {
+                            board[next][c] += 1;
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[next][c] == 0) {
+                            board[next][c] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[next - 1][c] == 0 && board[r][c] != 0) {
+                            board[next -1][c] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        }
+                        
                     }
                 }
             }
-        }   
-        return changed;
+            return changed;
+        }
+        
+        
+        private boolean handleLeft(int[][] board) {
+            boolean changed = false;
+           for (int r =0; r < 4; r++) {
+               for (int c =0; c < 4; c++) {
+                   // check forthe nearest element that is not equal to that element
+                    // and then move up to one below that element; 
+                    // if the element is equal; merge
+                   int next = c- 1;
+                   if (next >= 0 && next <= 3) {
+                        while(next >0 && next < 3 && board[r][next] == 0) {
+                            next--;
+                        }
+                        if (board[r][next] == board[r][c] && board[r][c] != 0) {
+                            board[r][next] += 1;
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[r][next] == 0) {
+                            board[r][next] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[r][next + 1] == 0 && board[r][c] != 0) {
+                            board[r][next + 1] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        }
+                    }
+                }
+            }
+            return changed;
+        }
+        
+        private boolean handleRight(int[][] board) {
+            boolean changed = false;
+           for (int r =0; r < 4; r++) {
+               for (int c =3; c >= 0; c--) {
+                   // check forthe nearest element that is not equal to that element
+                    // and then move up to one below that element; 
+                    // if the element is equal; merge
+                   int next = c+ 1;
+                   if (next >= 0 && next <= 3) {
+                        while(next >0 && next < 3 && board[r][next] == 0) {
+                            next++;
+                        }
+                        if (board[r][next] == board[r][c] && board[r][c] != 0) {
+                            board[r][next] += 1;
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[r][next] == 0) {
+                            board[r][next] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        } else if (board[r][next - 1] == 0 && board[r][c] != 0) {
+                            board[r][next - 1] = board[r][c];
+                            board[r][c] = 0;
+                            changed = true;
+                        }
+                    }
+                }
+            }   
+            return changed;
+        }
+        
+        public boolean checkLost() {
+            // checkif the game is lost
+                // if there are no more moves
+                    // if there are no more empty spaces
+                    // if there are no more merges
+                    int num = 0;
+               int[][] copy = deepCopy(board);
+            handleUP(copy);
+            if (!Arrays.deepEquals(copy, board)) {
+                num++;  
+            }
+            
+           copy = deepCopy(board);
+            handleDown(copy);
+            if (!Arrays.deepEquals(copy, board)) {
+                num++;  
+            }
+            
+           copy = deepCopy(board);
+            handleLeft(copy);
+            if (!Arrays.deepEquals(copy, board)) {
+                num++;  
+            }
+            
+           copy = deepCopy(board);
+            handleRight(copy);
+            if (!Arrays.deepEquals(copy, board)) {
+                num++;  
+            }
+            return num == 4;
+        }
+        
+        public void END() {
+            // deinitalize all the patches
+            
+           for (int i =0; i < patches.length; i++) {
+                patches[i].level = 0;
+                patches[i].draw();
+                patches[i].setColor(color(211, 211, 211));
+                patches[i].setValue("");
+                if (patches[i].showText) {
+                    patches[i].toggleText();
+                }
+            }
+            
+        }
+        
+        
+        private int[][] deepCopy(int[][] board) {
+            int[][] copy= new int[4][4];
+           for (int i =0; i < 4; i++) {
+                copy[i] = Arrays.copyOf(board[i], board[i].length);
+            }
+            return copy;
+        }
     }
-}
-
+        
+        
