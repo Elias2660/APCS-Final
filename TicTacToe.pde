@@ -4,9 +4,6 @@ public class TicTacToe implements Game {
   private int[][] board = new int[3][3];
   private int windowSize = 800;
   private float scaleFactor = windowSize / 40.0;
-  private boolean win = false;
-  private boolean t = true;
-  private boolean first = false;
   
   
   public TicTacToe() {}
@@ -20,7 +17,6 @@ public class TicTacToe implements Game {
 
   
   public void  mouseClicked() {
-    //if(win) return;
     int r, c;
           if(pmouseX < (width / 3)) r = 0;
       else if(pmouseX > (width / 3) && pmouseX < 2*(width / 3)) r = 1;
@@ -35,10 +31,8 @@ public class TicTacToe implements Game {
         isPlayer1Turn = false;
         if(checkWin(r, c, 1)){
          player1++; 
-         win = true;
          reset();
          isPlayer1Turn = true;
-         first = true;
          return;
         }
         
@@ -48,24 +42,16 @@ public class TicTacToe implements Game {
         isPlayer1Turn = true;
         if(checkWin(r, c, 2)){
          player2++;
-         win = true;
          reset();
          isPlayer1Turn = true;
-         first = true;
          return;
         }
         
       }
-     //redraw();
-   }
-   void redraw() {
-      windowResize(windowSize,windowSize);
    }
   
   public void draw() {
-     redraw();
-
-      t = false;  
+    windowResize(windowSize,windowSize);
     strokeWeight(1);
     fill(0,0,0,0);
     pushMatrix();
@@ -77,14 +63,12 @@ public class TicTacToe implements Game {
     
     
     drawGrid();
-    //winScreen();
     
     popMatrix();    
     fill(255);
-    text("PLAYER 1: " + player1 + "\nPLAYER 2: " + player2, 10, 10, 300, 30); 
-    
-    //if(!win && !first) {mouseClicked();}
-    //if(win) {win = !win; }
+    textSize(20);
+    text("PLAYER 1: " + player1 + "\nPLAYER 2: " + player2, 0, 20, 300, 60); 
+
   }
   
   private void winScreen(){
@@ -96,10 +80,6 @@ public class TicTacToe implements Game {
     text("Player 1 won!", 0, 10, 0, 5);
     
     
-  }
-  private void test(){
-    if(t) return;
-    mouseClicked();
   }
   
   private void drawGrid(){

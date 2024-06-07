@@ -2,6 +2,8 @@
 
 TwentyFortyEight tfe;
 Wordle w;
+TicTacToe ttt;
+
 int button = 255;
 int highlight = 150;
 int text = 0;
@@ -9,15 +11,9 @@ int back = #32a8a8;
 
 int game = 0;
 
-void setup() { 
-    size(400, 400);
-}
-
 public void mainMenu() {
   windowResize(400,400);
   background(back);
-  //System.out.println(sketchPath());
-  //background();
   fill(text);
   textAlign(CENTER);
   textSize(30);
@@ -69,6 +65,7 @@ void draw() {
     break;
     
     case 3:
+      ttt.draw();
     break;
   
   }
@@ -91,7 +88,7 @@ void mouseClicked() {
     case 0:
       if(mouseOverRect(50,100,300,30)) {game = 1; tfe = new TwentyFortyEight(this);}
       if(mouseOverRect(50,200,300,30)) {game = 2; w = new Wordle(this);}
-      if(mouseOverRect(50,300,300,30)) {game = 3;}
+      if(mouseOverRect(50,300,300,30)) {game = 3; ttt = new TicTacToe();}
     break;
     
     case 1:
@@ -101,6 +98,7 @@ void mouseClicked() {
     break;
     
     case 3:
+      ttt.mouseClicked();
     break;
     
   }
