@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 
+
 /**
  * The SortWords class provides methods to create and manipulate lists of
  * five-letter words.
  */
 public class SortWords {
 
-    private static String BASEPATH = "/Users/eliasxu/Documents/Projects/apcsa-assignments-Elias2660/main/";
+    private static String BASEPATH;
 
     /**
      * The main function calls the CreateFiveLettersWordList method.
@@ -19,6 +20,7 @@ public class SortWords {
         CreateFiveLettersWordList();
     }
 
+    public static ArrayList<String> makeWordList(String path) {
     /**
      * Reads a file containing a list of words, adds each word to an ArrayList,
      * and returns the ArrayList.
@@ -27,9 +29,10 @@ public class SortWords {
      */
     public static ArrayList<String> makeWordList() {
         ArrayList<String> wList = new ArrayList<String>();
+        BASEPATH = path;
         try {
             CreateFiveLettersWordList();
-            Scanner f = new Scanner(new File(BASEPATH + "Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -50,9 +53,11 @@ public class SortWords {
      *         converting them to lowercase and removing any leading or trailing
      *         whitespace.
      */
-    public static ArrayList<String> getWords() {
+    public static ArrayList<String> getWords(String path) {
         ArrayList<String> wList = new ArrayList<String>();
+        BASEPATH = path;
         try {
+            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
             Scanner f = new Scanner(new File(BASEPATH + "Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
@@ -69,9 +74,10 @@ public class SortWords {
      * from a file and
      * saves them to a new file named "Fivers.txt".
      */
+     
     public static void CreateFiveLettersWordList() {
         try {
-            File fiveLetterWords = new File(BASEPATH + "Fivers.txt");
+            File fiveLetterWords = new File(BASEPATH + "\\Fivers.txt");
             if (fiveLetterWords.createNewFile()) {
             }
         } catch (IOException E) {
@@ -80,8 +86,8 @@ public class SortWords {
 
         ArrayList<String> fiveLetterers = new ArrayList<String>();
         try {
-            Scanner words = new Scanner(new File(BASEPATH + "words.txt"));
-            while (words.hasNextLine()) {
+           Scanner words = new Scanner(new File(""));
+            while (words.hasNextLine()){
                 String word = words.nextLine();
                 if (word.length() == 5 && isAlpha(word)) {
                     fiveLetterers.add(word);
@@ -113,9 +119,12 @@ public class SortWords {
      *         containing words that
      *         are 5 characters long and consist only of alphabetic characters.
      */
-    public static ArrayList<String> createAnswerWordList() {
+    public static ArrayList<String> createAnswerWordList(String path) {
+      BASEPATH = path;
         ArrayList<String> PossibleAnswers = new ArrayList<String>();
         try {
+            Scanner words = new Scanner(new File(BASEPATH +
+                    "./tenThousandCommon.txt"));
             Scanner words = new Scanner(new File(
                     BASEPATH + "tenThousandCommon.txt"));
             while (words.hasNextLine()) {

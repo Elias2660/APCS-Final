@@ -66,9 +66,9 @@ public class Wordle {
                 index++;
             }
         }
-        words = SortWords.getWords();
+        words = SortWords.getWords(sketchPath().toString());
         // set random word to be the word of choice
-        ArrayList<String> possibleAnswers = SortWords.createAnswerWordList();
+        ArrayList<String> possibleAnswers = SortWords.createAnswerWordList(sketchPath().toString());
         answer = possibleAnswers.get((int) random(0, possibleAnswers.size()));
         System.out.println(answer);
     }
@@ -160,7 +160,7 @@ public class Wordle {
     /**
      * Handles key presses and performs corresponding actions based on the pressed key.
      */
-    private void handleKeyPresses() {  
+    public void handleKeyPresses() {  
         if (keyPressed && (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) || ((key == ENTER || key == RETURN || key == DELETE || key == BACKSPACE)))) {
             if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
                 // System.out.println("letter pressed: " + key);
@@ -191,7 +191,7 @@ public class Wordle {
     /**
      * Handles the logic for processing user input when the enter key is pressed.
      */
-    public void handleEnters() {
+    private void handleEnters() {
         int count = 0;
         String word = CharArrayToWord(currentRowLetters);
         if (WordValid(word)) {

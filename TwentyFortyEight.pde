@@ -13,7 +13,7 @@ public class TwentyFortyEight {
     /**
      * The TwentyFortyEight class represents the game board and its properties.
      * It contains the board, patches, game status, applet, dimensions, color array, and value array.
-     */
+     **/
     private int[][] board;
     private Patch[] patches = new Patch[16];
     private PApplet applet; 
@@ -71,8 +71,6 @@ public class TwentyFortyEight {
         //initialize patches
         initializePatches();
     }
-    
-    
     
     /**
      * Initializes the patches and adds a random element.
@@ -519,4 +517,3 @@ public class TwentyFortyEight {
         return copy;
     }
 }
-
