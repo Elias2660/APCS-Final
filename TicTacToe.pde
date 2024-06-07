@@ -5,6 +5,8 @@ public class TicTacToe implements Game {
   private int windowSize = 800;
   private float scaleFactor = windowSize / 40.0;
   private boolean win = false;
+  private boolean t = true;
+  private boolean first = false;
   
   
   public TicTacToe() {}
@@ -17,8 +19,8 @@ public class TicTacToe implements Game {
   
 
   
-  void  mouseReleased() {
-    if(win) return;
+  public void  mouseClicked() {
+    //if(win) return;
     int r, c;
           if(pmouseX < (width / 3)) r = 0;
       else if(pmouseX > (width / 3) && pmouseX < 2*(width / 3)) r = 1;
@@ -36,6 +38,7 @@ public class TicTacToe implements Game {
          win = true;
          reset();
          isPlayer1Turn = true;
+         first = true;
          return;
         }
         
@@ -48,15 +51,21 @@ public class TicTacToe implements Game {
          win = true;
          reset();
          isPlayer1Turn = true;
+         first = true;
          return;
         }
         
       }
      //redraw();
    }
+   void redraw() {
+      windowResize(windowSize,windowSize);
+   }
   
   public void draw() {
-    windowResize(windowSize,windowSize);
+     redraw();
+
+      t = false;  
     strokeWeight(1);
     fill(0,0,0,0);
     pushMatrix();
@@ -64,15 +73,33 @@ public class TicTacToe implements Game {
     translate(width/2 - 15*scaleFactor, height / 2 - 15*scaleFactor);
     scale(scaleFactor);
     
-    if(!win) { redraw(); mouseReleased();}
-    if(win) {win = !win;}
+    
+    
     
     drawGrid();
-    
+    //winScreen();
     
     popMatrix();    
     fill(255);
     text("PLAYER 1: " + player1 + "\nPLAYER 2: " + player2, 10, 10, 300, 30); 
+    
+    //if(!win && !first) {mouseClicked();}
+    //if(win) {win = !win; }
+  }
+  
+  private void winScreen(){
+    fill(255);
+    strokeWeight(0.3);
+    rect(05, 10, 20, 10);
+    fill(0);
+    strokeWeight(1);
+    text("Player 1 won!", 0, 10, 0, 5);
+    
+    
+  }
+  private void test(){
+    if(t) return;
+    mouseClicked();
   }
   
   private void drawGrid(){
