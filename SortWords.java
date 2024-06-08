@@ -29,7 +29,7 @@ public class SortWords {
         BASEPATH = path;
         try {
             CreateFiveLettersWordList();
-            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -56,7 +56,7 @@ public class SortWords {
         BASEPATH = path;
         BASEPATH = path;
         try {
-            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -128,7 +128,7 @@ public class SortWords {
         ArrayList<String> PossibleAnswers = new ArrayList<String>();
         try {
             Scanner words = new Scanner(new File(BASEPATH +
-                    "./tenThousandCommon.txt"));
+                    "/tenThousandCommon.txt"));
             while (words.hasNextLine()) {
                 String line = words.nextLine();
                 if (isAlpha(line) && line.length() == 5) {

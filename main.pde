@@ -80,8 +80,6 @@ void draw() {
     text("Quit", width - 80, 3, 70, 20);
   }
   
-    //w.draw();
-    //tfe.draw();
 }
 
 void mouseClicked() {
@@ -105,26 +103,6 @@ void mouseClicked() {
   }
   
   if(game != 0 && mouseOverRect(width - 80 ,1,70,20)) game = 0;
-}
-
-void keyPressed() {
-switch(game){
-    case 0:
-    break;
-    
-    case 1:
-      tfe.handleKeyPresses();
-    break;
-    
-    case 2:
-      w.handleKeyPresses();
-    break;
-    
-    case 3:
-    break;
-  
-  }
-
 }
 
 public boolean mouseOverRect(int x, int y, int w, int h) {
