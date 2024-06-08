@@ -20,7 +20,7 @@ public class SortWords {
         CreateFiveLettersWordList();
     }
 
-    public static ArrayList<String> makeWordList(String path) {
+    public static ArrayList<String> makeWordList(String path) {}
     /**
      * Reads a file containing a list of words, adds each word to an ArrayList,
      * and returns the ArrayList.
@@ -32,7 +32,7 @@ public class SortWords {
         BASEPATH = path;
         try {
             CreateFiveLettersWordList();
-            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -41,7 +41,7 @@ public class SortWords {
             e.printStackTrace();
         }
         return wList;
-    }
+    }}
 
     /**
      * The function `getWords()` reads a list of five-letter words from a file,
@@ -57,8 +57,7 @@ public class SortWords {
         ArrayList<String> wList = new ArrayList<String>();
         BASEPATH = path;
         try {
-            Scanner f = new Scanner(new File(BASEPATH + "\\Fivers.txt"));
-            Scanner f = new Scanner(new File(BASEPATH + "Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -127,6 +126,7 @@ public class SortWords {
                     "./tenThousandCommon.txt"));
             Scanner words = new Scanner(new File(
                     BASEPATH + "tenThousandCommon.txt"));
+                    "/tenThousandCommon.txt"));
             while (words.hasNextLine()) {
                 String line = words.nextLine();
                 if (isAlpha(line) && line.length() == 5) {
