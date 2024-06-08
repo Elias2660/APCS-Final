@@ -16,9 +16,15 @@ public class SortWords {
      * The main function calls the CreateFiveLettersWordList method.
      */
     public static void main(String[] args) {
-        //CreateFiveLettersWordList();
+        CreateFiveLettersWordList();
     }
 
+    /**
+     * Reads a file containing a list of words, adds each word to an ArrayList,
+     * and returns the ArrayList.
+     *
+     * @return The ArrayList containing the words from the file.
+     */
     public static ArrayList<String> makeWordList() {
         ArrayList<String> wList = new ArrayList<String>();
         try {
@@ -47,7 +53,7 @@ public class SortWords {
     public static ArrayList<String> getWords() {
         ArrayList<String> wList = new ArrayList<String>();
         try {
-            Scanner f = new Scanner(new File(BASEPATH+ "Fivers.txt"));
+            Scanner f = new Scanner(new File(BASEPATH + "Fivers.txt"));
             while (f.hasNextLine()) {
                 wList.add(f.nextLine().strip().toLowerCase());
             }
@@ -111,7 +117,7 @@ public class SortWords {
         ArrayList<String> PossibleAnswers = new ArrayList<String>();
         try {
             Scanner words = new Scanner(new File(
-                    "/Users/eliasxu/Documents/Projects/apcsa-assignments-Elias2660/main/tenThousandCommon.txt"));
+                    BASEPATH + "tenThousandCommon.txt"));
             while (words.hasNextLine()) {
                 String line = words.nextLine();
                 if (isAlpha(line) && line.length() == 5) {

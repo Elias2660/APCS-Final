@@ -1,5 +1,5 @@
 public class Patch {
-
+    
     // may need to add rounding later
     private color c = color(0);
     private int x;  
@@ -15,7 +15,7 @@ public class Patch {
     private PApplet applet;
     private String value = ""; // Changed data type to String
     private boolean stroke = false;
-
+    
     public Patch(PApplet applet, int x, int y, int w, int h, color c, float rounding, boolean stroke, color textColor) {
         this.applet = applet;
         this.x = x;
@@ -28,7 +28,7 @@ public class Patch {
         this.stroke = stroke;
         this.textColor = textColor;
     }
-
+    
     public Patch(PApplet applet, int x, int y, int w, int h, int level, color c) {
         this.applet = applet;
         this.x = x;
@@ -38,26 +38,26 @@ public class Patch {
         this.c = c;
         this.level = level;
     }
-
-
+    
+    
     public Patch toggleText() {
         showText = !showText;
         return this;
     }
-
+    
     public boolean isShowingText() {
         return showText;
     }
-
+    
     public int getLevel() {
         return level;
     }
-
+    
     public Patch anchor() {
         anchored = true;
         return this;
     }
-
+    
     public int setLevel(int level) {
         return this.level = level;
     }
@@ -71,11 +71,11 @@ public class Patch {
             applet.strokeWeight(3);
         }
         applet.rect(x, y, w, h, rounding);
-
+        
         if (showText || anchored) {
             applet.fill(textColor);
             applet.textSize(20);
-            applet.text(value, x + w/2, y + h/2);
+            applet.text(value, x + w / 2, y + h / 2);
         }
     }
     
