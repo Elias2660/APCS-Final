@@ -17,35 +17,16 @@ public void mainMenu() {
   fill(text);
   textAlign(CENTER);
   textSize(30);
+  stroke(0);
+  strokeWeight(0.5);
   text("Welcome to Processing Arcade", 200, 40);
   textAlign(LEFT);
   textSize(10);
   text("- Elias Xu, Arman Johal", 300, 60);
   
-  
-  
-  
-  fill(button);
-  if(mouseOverRect(50,100,300,30)) fill(highlight);
-  rect(50, 100, 300, 30);
-  
-  fill(button);
-  if(mouseOverRect(50,200,300,30)) fill(highlight);
-  rect(50, 200, 300, 30);
-  
-  fill(button);
-  if(mouseOverRect(50,300,300,30)) fill(highlight);
-  rect(50, 300, 300, 30);
-  
-  
-  fill(text);
-  textAlign(CENTER);
-  textSize(20);
-  text("Twenty Forty Eight", 200, 120);
-  text("Wordle", 200, 220);
-  text("Tictactoe", 200, 320);
-  
-  
+  makeCenterButton(50,100,300,30,button,highlight,text,"Twenty Forty Eight");
+  makeCenterButton(50,200,300,30,button,highlight,text,"Wordle");
+  makeCenterButton(50,300,300,30,button,highlight,text,"Tictactoe"); 
   
 }
 
@@ -71,6 +52,8 @@ void draw() {
   }
   if(game != 0) {
     fill(button);
+    stroke(0);
+    strokeWeight(0.5);
     if(mouseOverRect(width - 80 ,1,70,20)) fill(highlight);
     rect(width - 80 ,1,70,20);
     fill(text);
@@ -106,4 +89,16 @@ void mouseClicked() {
 
 public boolean mouseOverRect(int x, int y, int w, int h) {
   return (mouseX > x && mouseX < x + w) && (mouseY > y && mouseY < y + h);
+}
+
+public void makeCenterButton(int x, int y, int w, int h, int buttonColor, int highlightColor, int textColor, String text){
+  fill(buttonColor);
+  stroke(0);
+  strokeWeight(0.5);
+  if(mouseOverRect(x,y,w,h)) fill(highlightColor);
+  rect(x, y, w, h);
+  fill(textColor);
+  textAlign(CENTER);
+  textSize(20);
+  text(text, width/2, y+20);
 }
