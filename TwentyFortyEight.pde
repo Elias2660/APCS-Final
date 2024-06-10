@@ -1,9 +1,9 @@
 /**
- * The TwentyFortyEight class represents the game board and its functionality.
- * It includes methods for initializing the patches, handling key presses, drawing the patches,
- * synchronizing the board with the patches, adding random elements, and handling movement in different directions.
- * The game can be won or lost, and the class includes methods for checking the game state and ending the game.
- */
+* The TwentyFortyEight class represents the game board and its functionality.
+* It includes methods for initializing the patches, handling key presses, drawing the patches,
+* synchronizing the board with the patches, adding random elements, and handling movement in different directions.
+* The game can be won or lost, and the class includes methods for checking the game state and ending the game.
+*/
 /*
 TODO: add a points monitor at the back
 
@@ -11,9 +11,9 @@ TODO: add a points monitor at the back
 import java.util.Arrays;
 public class TwentyFortyEight {
     /**
-     * The TwentyFortyEight class represents the game board and its properties.
-     * It contains the board, patches, game status, applet, dimensions, color array, and value array.
-     **/
+    * The TwentyFortyEight class represents the game board and its properties.
+    * It contains the board, patches, game status, applet, dimensions, color array, and value array.
+    **/
     private int[][] board;
     private Patch[] patches = new Patch[16];
     private PApplet applet; 
@@ -22,39 +22,39 @@ public class TwentyFortyEight {
     private boolean lost = false;
     private boolean won = false;
     private boolean lastPressed = false;
-
-
+    
+    
     /**
-     * An array of colors used to represent different values on the game board.
-     */
+    * An array of colors used to represent different values on the game board.
+    */
     color[] colorArray = new color[] {
         color(211, 211, 211), // 0
-        color(255, 255, 0),   // 2
-        color(255, 165, 0),   // 4
-        color(255, 69, 0),    // 8
-        color(255, 0, 0),     // 16
-        color(255, 0, 255),   // 32
-        color(0, 0, 255),     // 64
-        color(0, 255, 255),   // 128
-        color(0, 255, 0),     // 256
-        color(0, 128, 0),     // 512
-        color(0, 0, 128),     // 1024
-        color(128, 0, 128)    // 2048
-    };
-
+            color(255, 255, 0),   // 2
+            color(255, 165, 0),   // 4
+            color(255, 69, 0),    // 8
+            color(255, 0, 0),     // 16
+            color(255, 0, 255),   // 32
+            color(0, 0, 255),     // 64
+            color(0, 255, 255),   // 128
+            color(0, 255, 0),     // 256
+            color(0, 128, 0),     // 512
+            color(0, 0, 128),     // 1024
+            color(128, 0, 128)    // 2048
+        };
+    
     /**
-     * An array of values corresponding to the colors in the colorArray.
-     */
+    * An array of values corresponding to the colors in the colorArray.
+    */
     int[] valueArray = new int[] {
         0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048
     };
     
     /**
-     * Constructor for the TwentyFortyEight class.
-     * Initializes the game board and patches.
-     *
-     * @param papplet The PApplet object used for rendering.
-     */
+    * Constructor for the TwentyFortyEight class.
+    * Initializes the game board and patches.
+    *
+    * @param papplet The PApplet object used for rendering.
+    */
     public TwentyFortyEight(PApplet papplet) {
         applet = papplet;
         
@@ -73,11 +73,11 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Initializes the patches and adds a random element.
-     * Patches are created with a specific size and color, and their text is toggled on.
-     * The patches are stored in an array.
-     * The method continues creating patches until the screen is filled or the maximum number of patches is reached.
-     */
+    * Initializes the patches and adds a random element.
+    * Patches are created with a specific size and color, and their text is toggled on.
+    * The patches are stored in an array.
+    * The method continues creating patches until the screen is filled or the maximum number of patches is reached.
+    */
     void initializePatches() {
         // Initialize variables
         int initialX = 27;
@@ -88,7 +88,7 @@ public class TwentyFortyEight {
         int index = 0;
         
         // Create patches
-        while (y < height - 20 && index < 16) {
+        while(y < height - 20 && index < 16) {
             // Reset x position if it exceeds the width
             if (x >= width - 20) {
                 x = initialX;
@@ -119,13 +119,13 @@ public class TwentyFortyEight {
         // Add a random element
         addRandomElement();
     }
-
+    
     /**
-     * Handles key presses and updates the game state accordingly.
-     * Checks if the game is lost or won after each key press.
-     * If the game is lost, calls the ENDLOST() function.
-     * If the game is won, calls the ENDWON() function.
-     */
+    * Handles key presses and updates the game state accordingly.
+    * Checks if the game is lost or won after each key press.
+    * If the game is lost, calls the ENDLOST() function.
+    * If the game is won, calls the ENDWON() function.
+    */
     void draw() {
         // Check if the game is still ongoing
         if (!lost && !won) {
@@ -156,8 +156,8 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Handles key presses and updates the game board accordingly.
-     */
+    * Handles key presses and updates the game board accordingly.
+    */
     public void handleKeyPresses() {
         boolean changed = false;
         if (key == CODED) {
@@ -184,11 +184,11 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Draws the patches on the screen.
-     * Each patch is assigned a value and color based on its level.
-     * If the patch's level is not 0, its value is displayed.
-     * If the patch's level is 0, its value is not displayed.
-     */
+    * Draws the patches on the screen.
+    * Each patch is assigned a value and color based on its level.
+    * If the patch's level is not 0, its value is displayed.
+    * If the patch's level is 0, its value is not displayed.
+    */
     public void drawPatches() {
         for (int i = 0; i < patches.length; i++) {
             patches[i].setValue(String.valueOf(valueArray[patches[i].level]));
@@ -212,9 +212,9 @@ public class TwentyFortyEight {
     
     
     /**
-     * Synchronizes the patches with the board and vice versa.
-     * Updates the level of each patch based on the corresponding value in the board.
-     */
+    * Synchronizes the patches with the board and vice versa.
+    * Updates the level of each patch based on the corresponding value in the board.
+    */
     public void syncP() {
         for (int i = 0; i < 16; i++) {
             patches[i].level = board[i / 4][i % 4];
@@ -222,9 +222,9 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Synchronizes the game board with the patches.
-     * Updates the patches with the current state of the game board.
-     */
+    * Synchronizes the game board with the patches.
+    * Updates the patches with the current state of the game board.
+    */
     public void syncB() {
         // sync the board with the patches
         // sync the patches with the board
@@ -234,9 +234,9 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Adds a random element to the board.
-     * If there are no more empty spaces or no more moves, the board remains unchanged.
-     */
+    * Adds a random element to the board.
+    * If there are no more empty spaces or no more moves, the board remains unchanged.
+    */
     public void addRandomElement() {
         syncB();
         syncP();
@@ -253,11 +253,11 @@ public class TwentyFortyEight {
     
     
     /**
-     * Handles the movement of the tiles in the upward direction.
-     * 
-     * @param board The game board represented as a 2D array.
-     * @return true if any tiles were moved or merged, false otherwise.
-     */
+    * Handles the movement of the tiles in the upward direction.
+    * 
+    * @param board The game board represented as a 2D array.
+    * @return true if any tiles were moved or merged, false otherwise.
+    */
     private boolean handleUP(int[][] board) {
         boolean changed = false;
         for (int c = 0; c < 4; c++) {
@@ -289,14 +289,14 @@ public class TwentyFortyEight {
         }
         return changed;
     }
-
-
+    
+    
     /**
-     * Handles the movement of the tiles in the downward direction.
-     * 
-     * @param board The game board represented as a 2D array.
-     * @return true if any tiles were moved or merged, false otherwise.
-     */
+    * Handles the movement of the tiles in the downward direction.
+    * 
+    * @param board The game board represented as a 2D array.
+    * @return true if any tiles were moved or merged, false otherwise.
+    */
     private boolean handleDown(int[][] board) {
         boolean changed = false;
         for (int c = 0; c < 4; c++) {
@@ -328,14 +328,14 @@ public class TwentyFortyEight {
         }
         return changed;
     }
-
-
+    
+    
     /**
-     * Handles the movement of the tiles in the left direction.
-     * 
-     * @param board The game board represented as a 2D array.
-     * @return true if any tiles were moved or merged, false otherwise.
-     */
+    * Handles the movement of the tiles in the left direction.
+    * 
+    * @param board The game board represented as a 2D array.
+    * @return true if any tiles were moved or merged, false otherwise.
+    */
     private boolean handleLeft(int[][] board) {
         boolean changed = false;
         for (int r = 0; r < 4; r++) {
@@ -366,14 +366,14 @@ public class TwentyFortyEight {
         }
         return changed;
     }
-
-
+    
+    
     /**
-     * Handles the movement of the tiles in the right direction.
-     * 
-     * @param board The game board represented as a 2D array.
-     * @return true if any tiles were moved or merged, false otherwise.
-     */
+    * Handles the movement of the tiles in the right direction.
+    * 
+    * @param board The game board represented as a 2D array.
+    * @return true if any tiles were moved or merged, false otherwise.
+    */
     private boolean handleRight(int[][] board) {
         boolean changed = false;
         for (int r = 0; r < 4; r++) {
@@ -405,10 +405,10 @@ public class TwentyFortyEight {
         return changed;
     }
     /**
-     * Checks if the game is lost by determining if there are no more moves, no more empty spaces, or no more merges.
-     * 
-     * @return true if the game is lost, false otherwise
-     */
+    * Checks if the game is lost by determining if there are no more moves, no more empty spaces, or no more merges.
+    * 
+    * @return true if the game is lost, false otherwise
+    */
     public boolean checkLost() {
         int num = 0;
         int[][] copy = deepCopy(board);
@@ -437,9 +437,9 @@ public class TwentyFortyEight {
         return num == 4;
     }
     /**
-     * Resets the patches to their initial state, clearing their values and setting their levels to 0.
-     * Then, it sets specific patches to spell out the word "YOU LOST" and displays them on the screen.
-     */
+    * Resets the patches to their initial state, clearing their values and setting their levels to 0.
+    * Then, it sets specific patches to spell out the word "YOU LOST" and displays them on the screen.
+    */
     public void ENDLOST() {
         
         for (int i = 0; i < patches.length; i++) {
@@ -463,10 +463,10 @@ public class TwentyFortyEight {
         patches[7].setValue("T").toggleText().anchor().draw();
     }
     /**
-     * Resets the game state when the player wins.
-     * Sets the level of all patches to 0, clears their values, and hides their text.
-     * Displays the message "YOU WON" on the top row of patches.
-     */
+    * Resets the game state when the player wins.
+    * Sets the level of all patches to 0, clears their values, and hides their text.
+    * Displays the message "YOU WON" on the top row of patches.
+    */
     public void ENDWON() {
         for (int i = 0; i < patches.length; i++) {
             if (!patches[i].getValue().matches("[A-Z\\s]+")) {
@@ -490,10 +490,10 @@ public class TwentyFortyEight {
     
     
     /**
-     * Checks if the player has won the game.
-     * 
-     * @return true if the player has won, false otherwise
-     */
+    * Checks if the player has won the game.
+    * 
+    * @return true if the player has won, false otherwise
+    */
     public boolean checkWon() {
         for (Patch p : patches) {
             if (p.level == 11) {
@@ -504,11 +504,11 @@ public class TwentyFortyEight {
     }
     
     /**
-     * Creates a deep copy of a 2D integer array representing a game board.
-     * 
-     * @param board The original game board to be copied.
-     * @return A deep copy of the original game board.
-     */
+    * Creates a deep copy of a 2D integer array representing a game board.
+    * 
+    * @param board The original game board to be copied.
+    * @return A deep copy of the original game board.
+    */
     private int[][] deepCopy(int[][] board) {
         int[][] copy = new int[4][4];
         for (int i = 0; i < 4; i++) {

@@ -1,12 +1,12 @@
 /**
- * The Wordle class represents the main game logic for the Wordle game.
- * It handles rendering the game elements, handling user input, and determining the game outcome.
- * The game board consists of patches that can be filled with letters to guess the hidden word.
- * The player has 6 rows to guess the word, and if they fail to guess it within the given number of rows, they lose.
- * If the player successfully guesses the word within the given number of rows, they win.
- * The game provides feedback on the correctness of the guessed letters.
- * The Wordle class also handles displaying the correct answer when the player loses and displaying a victory message when the player wins.
- */
+* The Wordle class represents the main game logic for the Wordle game.
+* It handles rendering the game elements, handling user input, and determining the game outcome.
+* The game board consists of patches that can be filled with letters to guess the hidden word.
+* The player has 6 rows to guess the word, and if they fail to guess it within the given number of rows, they lose.
+* If the player successfully guesses the word within the given number of rows, they win.
+* The game provides feedback on the correctness of the guessed letters.
+* The Wordle class also handles displaying the correct answer when the player loses and displaying a victory message when the player wins.
+*/
 /*
 ? TODO: WORK on EXTENTIONS
 */
@@ -37,12 +37,12 @@ public class Wordle {
     private boolean lost = false;
     
     /**
-     * Constructor for the Wordle class.
-     * Initializes the Wordle game with a given PApplet object.
-     * Sets up the game board, patches, and the word to guess.
-     * 
-     * @param papplet The PApplet object used for rendering.
-     */
+    * Constructor for the Wordle class.
+    * Initializes the Wordle game with a given PApplet object.
+    * Sets up the game board, patches, and the word to guess.
+    * 
+    * @param papplet The PApplet object used for rendering.
+    */
     public Wordle(PApplet papplet) {
         this.papplet = papplet;
         papplet.background(color(18,18,19));
@@ -74,13 +74,13 @@ public class Wordle {
     }
     
     /**
-     * The draw method is responsible for rendering the game elements and handling user input.
-     * It checks if the game is still ongoing and if the current row is within the valid range.
-     * If the game is ongoing and the current row is within the range, it calls the drawElements() 
-     * method to render the game elements and the handleKeyPresses() method to handle user input.
-     * If the game is lost, it calls the copeWithLoss() method.
-     * If the game is won, it calls the handleVictory() method.
-     */
+    * The draw method is responsible for rendering the game elements and handling user input.
+    * It checks if the game is still ongoing and if the current row is within the valid range.
+    * If the game is ongoing and the current row is within the range, it calls the drawElements() 
+    * method to render the game elements and the handleKeyPresses() method to handle user input.
+    * If the game is lost, it calls the copeWithLoss() method.
+    * If the game is won, it calls the handleVictory() method.
+    */
     public void draw() {
         if (!lost && !won) {
             if (currentRow <= 5) {
@@ -99,10 +99,10 @@ public class Wordle {
     }
     
     /**
-     * Handles the victory condition in the Wordle game.
-     * If the victory condition is met, this method will update the patches on the screen to display the word "YOU WIN!" in yellow.
-     * If the victory condition has already been triggered, this method does nothing.
-     */
+    * Handles the victory condition in the Wordle game.
+    * If the victory condition is met, this method will update the patches on the screen to display the word "YOU WIN!" in yellow.
+    * If the victory condition has already been triggered, this method does nothing.
+    */
     public void handleVictory() {
         if (!triggered) {
             for (int i = 0; i < 30; i++) {
@@ -122,8 +122,8 @@ public class Wordle {
     }
     
     /**
-     * Resets the game state and displays the correct answer when the player loses.
-     */
+    * Resets the game state and displays the correct answer when the player loses.
+    */
     public void copeWithLoss() {
         if (!triggered) {
             for (int i = 0; i < 30; i++) {
@@ -158,8 +158,8 @@ public class Wordle {
     
     
     /**
-     * Handles key presses and performs corresponding actions based on the pressed key.
-     */
+    * Handles key presses and performs corresponding actions based on the pressed key.
+    */
     public void handleKeyPresses() {  
         if (keyPressed && (((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) || ((key == ENTER || key == RETURN || key == DELETE || key == BACKSPACE)))) {
             if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
@@ -189,8 +189,8 @@ public class Wordle {
         }
     }
     /**
-     * Handles the logic for processing user input when the enter key is pressed.
-     */
+    * Handles the logic for processing user input when the enter key is pressed.
+    */
     private void handleEnters() {
         int count = 0;
         String word = CharArrayToWord(currentRowLetters);
@@ -235,23 +235,23 @@ public class Wordle {
     }
     
     /**
-     * Handles the deletion of a letter in the current row of the Wordle game.
-     * This method updates the patches array and the currentRowLetters array
-     * to remove the last letter in the current row.
-     */
+    * Handles the deletion of a letter in the current row of the Wordle game.
+    * This method updates the patches array and the currentRowLetters array
+    * to remove the last letter in the current row.
+    */
     public void handleDeletes() {
         patches[currentRow * 5 + numberOfLettersInCurrentRow - 1].setValue(String.valueOf(' '));
         numberOfLettersInCurrentRow--;
         currentRowLetters[numberOfLettersInCurrentRow] = ' ';
     }
-
-
+    
+    
     /**
-     * Draws the elements on the screen.
-     * This method iterates through the patches array and sets the value of each patch based on the currentRowLetters array.
-     * It also toggles the text visibility of each patch if the corresponding letter in currentRowLetters is not a space and the patch is not already showing text.
-     * Finally, it calls the draw() method for each patch to display them on the screen.
-     */
+    * Draws the elements on the screen.
+    * This method iterates through the patches array and sets the value of each patch based on the currentRowLetters array.
+    * It also toggles the text visibility of each patch if the corresponding letter in currentRowLetters is not a space and the patch is not already showing text.
+    * Finally, it calls the draw() method for each patch to display them on the screen.
+    */
     private void drawElements() {
         for (int i = currentRow * 5; i < currentRow * 5 + 5; i ++) {
             if (currentRowLetters[i - currentRow * 5] != ' ' && !patches[i].isShowingText()) {
@@ -264,24 +264,24 @@ public class Wordle {
             patches[i].draw();
         }
     }
-
-
+    
+    
     /**
-     * Checks if a word is valid.
-     * 
-     * @param word the word to be checked
-     * @return true if the word is valid, false otherwise
-     */
+    * Checks if a word is valid.
+    * 
+    * @param word the word to be checked
+    * @return true if the word is valid, false otherwise
+    */
     private boolean WordValid(String word) {
         return words.contains(word.strip().toLowerCase());
     }
-
+    
     /**
-     * Converts a character array to a string.
-     * 
-     * @param word the character array to be converted
-     * @return the converted string
-     */
+    * Converts a character array to a string.
+    * 
+    * @param word the character array to be converted
+    * @return the converted string
+    */
     private String CharArrayToWord(char[] word) {
         String str = "";
         for (char c : word) {
@@ -289,13 +289,13 @@ public class Wordle {
         }
         return str;
     }
-
+    
     /**
-     * Converts a string to a character array.
-     * 
-     * @param word the string to be converted
-     * @return the converted character array
-     */
+    * Converts a string to a character array.
+    * 
+    * @param word the string to be converted
+    * @return the converted character array
+    */
     private char[] WordToCharArray(String word) {
         return word.toCharArray();
     }
