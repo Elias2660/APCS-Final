@@ -32,7 +32,6 @@ public class TicTacToe implements Game {
         if(checkWin(r, c, 1)){
          player1++; 
          reset();
-         isPlayer1Turn = true;
          return;
         }
         
@@ -43,11 +42,14 @@ public class TicTacToe implements Game {
         if(checkWin(r, c, 2)){
          player2++;
          reset();
-         isPlayer1Turn = true;
          return;
         }
         
       }
+      
+      if(checkFull()) reset();
+      
+      
    }
   
   public void draw() {
@@ -111,7 +113,7 @@ public class TicTacToe implements Game {
   }
   
   private void reset() {
-    //isPlayer1Turn = true;
+    isPlayer1Turn = true;
     board = new int[3][3];
     background(#cccccc);
     drawGrid();
@@ -147,4 +149,11 @@ public class TicTacToe implements Game {
     right &= player == board[0][2] && player == board[1][1] && player == board[2][0];
     return left || right;
   }
+  
+  private boolean checkFull() {
+    boolean spaceFilled = true;
+    for(int[] i : board) for(int j : i) spaceFilled &= j != 0;
+    return spaceFilled;
+  }
+  
 }
