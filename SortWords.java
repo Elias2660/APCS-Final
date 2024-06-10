@@ -22,7 +22,6 @@ public class SortWords {
     public static ArrayList<String> makeWordList(String path) {
         ArrayList<String> wList = new ArrayList<String>();
         BASEPATH = path;
-        BASEPATH = path;
         try {
             CreateFiveLettersWordList();
             Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
@@ -48,7 +47,6 @@ public class SortWords {
      */
     public static ArrayList<String> getWords(String path) {
         ArrayList<String> wList = new ArrayList<String>();
-        BASEPATH = path;
         BASEPATH = path;
         try {
             Scanner f = new Scanner(new File(BASEPATH + "/Fivers.txt"));
