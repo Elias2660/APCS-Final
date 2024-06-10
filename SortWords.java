@@ -4,15 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileWriter;
 
-
-
 /**
  * The SortWords class provides methods to create and manipulate lists of
  * five-letter words.
  */
 public class SortWords {
 
-    private static String BASEPATH;
     private static String BASEPATH;
 
     /**
@@ -22,7 +19,6 @@ public class SortWords {
         CreateFiveLettersWordList();
     }
 
-    public static ArrayList<String> makeWordList(String path) {
     public static ArrayList<String> makeWordList(String path) {
         ArrayList<String> wList = new ArrayList<String>();
         BASEPATH = path;
@@ -51,7 +47,6 @@ public class SortWords {
      *         whitespace.
      */
     public static ArrayList<String> getWords(String path) {
-    public static ArrayList<String> getWords(String path) {
         ArrayList<String> wList = new ArrayList<String>();
         BASEPATH = path;
         BASEPATH = path;
@@ -72,11 +67,9 @@ public class SortWords {
      * from a file and
      * saves them to a new file named "Fivers.txt".
      */
-     
-     
+
     public static void CreateFiveLettersWordList() {
         try {
-            File fiveLetterWords = new File(BASEPATH + "\\Fivers.txt");
             File fiveLetterWords = new File(BASEPATH + "\\Fivers.txt");
             if (fiveLetterWords.createNewFile()) {
             }
@@ -86,10 +79,8 @@ public class SortWords {
 
         ArrayList<String> fiveLetterers = new ArrayList<String>();
         try {
-           Scanner words = new Scanner(new File(""));
-            while (words.hasNextLine()){
-           Scanner words = new Scanner(new File(""));
-            while (words.hasNextLine()){
+            Scanner words = new Scanner(new File(""));
+            while (words.hasNextLine()) {
                 String word = words.nextLine();
                 if (word.length() == 5 && isAlpha(word)) {
                     fiveLetterers.add(word);
@@ -122,9 +113,7 @@ public class SortWords {
      *         are 5 characters long and consist only of alphabetic characters.
      */
     public static ArrayList<String> createAnswerWordList(String path) {
-      BASEPATH = path;
-    public static ArrayList<String> createAnswerWordList(String path) {
-      BASEPATH = path;
+        BASEPATH = path;
         ArrayList<String> PossibleAnswers = new ArrayList<String>();
         try {
             Scanner words = new Scanner(new File(BASEPATH +
