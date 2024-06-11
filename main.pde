@@ -36,19 +36,15 @@ void draw() {
         case 0:
             mainMenu();
             break;
-        
         case 1:
             tfe.draw();
             break;
-        
         case 2:
             w.draw();
             break;
-        
         case 3:
             ttt.draw();
             break;
-        
     }
     if (game != 0) {
         fill(button);
@@ -61,21 +57,26 @@ void draw() {
         textSize(20);
         text("Quit", width - 80, 3, 70, 20);
     }
-    
 }
 
 void mouseClicked() {
     switch(game) {
         case 0:
-            if (mouseOverRect(50,100,300,30)) {game = 1; tfe = new TwentyFortyEight(this);}
-            if (mouseOverRect(50,200,300,30)) {game = 2; w = new Wordle(this);}
-            if (mouseOverRect(50,300,300,30)) {game = 3; ttt = new TicTacToe();}
+            if (mouseOverRect(50,100,300,30)) {
+                game = 1;
+                tfe = new TwentyFortyEight(this);
+            }
+            if (mouseOverRect(50,200,300,30)) {
+                game = 2; w = new Wordle(this);
+            }
+            if (mouseOverRect(50,300,300,30)) {
+                game = 3;
+                ttt = new TicTacToe();
+            }
             break;
-        
         case 3:
             ttt.mouseClicked();
             break;
-        
     }
     
     if (game != 0 && mouseOverRect(width - 80 ,1,70,20)) game = 0;
