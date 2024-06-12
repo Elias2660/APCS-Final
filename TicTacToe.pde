@@ -1,4 +1,4 @@
-public class TicTacToe implements Game {
+public class TicTacToe {
     
     private int player1, player2 = 0;
     private boolean isPlayer1Turn = true;
@@ -16,7 +16,7 @@ public class TicTacToe implements Game {
         reset();
     }
     
-    public void  mouseClicked() {
+    public void mouseClicked() {
         int r, c;
         if (pmouseX < (width / 3)) {
             r = 0;
@@ -110,7 +110,6 @@ public class TicTacToe implements Game {
                 }
             }
         }
-        
     }
     
     private void addX(int r, int c) {
@@ -130,7 +129,6 @@ public class TicTacToe implements Game {
         board = new int[3][3];
         background(#cccccc);
         drawGrid();
-        
     }
     
     private boolean checkWin(int x, int y, int player) {
@@ -143,7 +141,6 @@ public class TicTacToe implements Game {
             total &= i == player;
         }
         return total;
-        
     }
     
     private boolean checkCol(int c, int player) {
@@ -153,7 +150,6 @@ public class TicTacToe implements Game {
         }
         return total;
     }
-    
     
     private boolean checkDia(int player) {
         boolean left = true;
