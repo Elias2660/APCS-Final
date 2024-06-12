@@ -9,13 +9,7 @@ public class TicTacToe {
     public TicTacToe() {
         
     }
-    
-    public void setup() {
-        player1 = 0; 
-        player2 = 0;
-        reset();
-    }
-    
+
     public void mouseClicked() {
         int r, c;
         if (pmouseX < (width / 3)) {
@@ -82,15 +76,6 @@ public class TicTacToe {
         textSize(20);
         text("PLAYER 1: " + player1 + "\nPLAYER 2: " + player2, 0, 20, 300, 60); 
         
-    }
-    
-    private void winScreen() {
-        fill(255);
-        strokeWeight(0.3);
-        rect(05, 10,20, 10);
-        fill(0);
-        strokeWeight(1);
-        text("Player1 won!", 0, 10, 0, 5);
     }
     
     private void drawGrid() {
